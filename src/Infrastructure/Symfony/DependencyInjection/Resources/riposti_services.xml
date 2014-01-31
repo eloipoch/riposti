@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="riposti.relation_data_accessor.class">Pablodip\Riposti\Domain\Service\RelationDataAccessor\PropertyReflectionRelationDataAccessor</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="riposti.class_relations_definition_obtainer" alias="" />
+        <service id="riposti.relation_data_accessor" class="%riposti.relation_data_accessor.class%" />
+        <service id="riposti.relation_loader" alias="" />
+
+        <service id="riposti.loader_builder" class="Pablodip\Riposti\Domain\RipostiLoaderBuilder">
+            <argument type="service" id="riposti.class_relations_definition_obtainer" />
+            <argument type="service" id="riposti.relation_data_accessor" />
+            <argument type="service" id="riposti.relation_loader" />
+        </service>
+
+        <service id="riposti.loader" class="Pablodip\Riposti\Domain\RipostiLoader" factory-service="riposti.loader_builder" factory-method="build" />
+
+    </services>
+
+</container>
