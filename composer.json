@@ -19,9 +19,12 @@
         "akamon/mockery-callable-mock": "~1.0",
         "symfony/process": "~2.3",
 
-        "pablodip/symfony-container-configurator": "*@dev",
         "pablodip/symfony-container-behat-context": "*@dev",
+        "akamon/behat-symfony-kernel-context": "*@dev",
+        "pablodip/symfony-container-configurator": "*@dev",
+        "akamon/symfony-configurable-kernel": "*@dev",
 
+        "symfony/http-kernel": "~2.3",
         "symfony/dependency-injection": "~2.3"
     },
     "autoload": {

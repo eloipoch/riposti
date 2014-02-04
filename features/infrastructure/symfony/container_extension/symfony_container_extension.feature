@@ -14,7 +14,7 @@ Feature: Riposti Symfony Container Extension
 
       services:
         foo:
-          class: Pablodip\Riposti\Infrastructure\Symfony\DependencyInjection\NoClassRelationsDefinitionObtainer
+          class: Pablodip\Riposti\Infrastructure\Symfony\DependencyInjection\NoClassRelationsMetadataObtainer
         bar:
           class: Pablodip\Riposti\Infrastructure\Symfony\DependencyInjection\NoRelationLoader
       """

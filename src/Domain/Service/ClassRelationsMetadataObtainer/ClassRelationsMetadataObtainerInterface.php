@@ -9,5 +9,5 @@ interface ClassRelationsMetadataObtainerInterface
     /**
      * @return ClassRelationsMetadata
      */
-    function __invoke($classMetadata);
+    function __invoke($class);
 }

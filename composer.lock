@@ -3,11 +3,66 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a8c2279bb3f2c238c769845783fe8892",
+    "hash": "c93377ee80147157ebc0f45f8af88be4",
     "packages": [
 
     ],
     "packages-dev": [
+        {
+            "name": "akamon/behat-symfony-kernel-context",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Akamon/behat-symfony-kernel-context.git",
+                "reference": "f028e7115772a8e3d8e4f810123d73535637c76b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Akamon/behat-symfony-kernel-context/zipball/f028e7115772a8e3d8e4f810123d73535637c76b",
+                "reference": "f028e7115772a8e3d8e4f810123d73535637c76b",
+                "shasum": ""
+            },
+            "require": {
+                "akamon/mockery-callable-mock": "*@dev",
+                "akamon/symfony-configurable-kernel": "*@dev",
+                "behat/behat": "~2.4",
+                "pablodip/felpado": "~0.8",
+                "php": ">=5.3.3",
+                "symfony/filesystem": "~2.3",
+                "symfony/http-kernel": "~2.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.8",
+                "phing/phing": "~2.6",
+                "phpunit/phpunit": "~3.7",
+                "symfony/symfony": "~2.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Akamon\\Behat\\SymfonyKernelContext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pablo Díez",
+                    "email": "pablodip@gmail.com",
+                    "homepage": "http://github.com/pablodip"
+                }
+            ],
+            "description": "Behat SymfonyKernelContext",
+            "keywords": [
+                "Behat",
+                "Context",
+                "kernel",
+                "symfony"
+            ],
+            "time": "2014-01-14 09:12:47"
+        },
         {
             "name": "akamon/mockery-callable-mock",
             "version": "v1.0.0",
@@ -53,6 +108,56 @@
                 "mockery"
             ],
             "time": "2014-01-31 15:24:36"
+        },
+        {
+            "name": "akamon/symfony-configurable-kernel",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Akamon/symfony-configurable-kernel.git",
+                "reference": "71a1475826d23a4b4bc7a926a4463b54e442a37b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Akamon/symfony-configurable-kernel/zipball/71a1475826d23a4b4bc7a926a4463b54e442a37b",
+                "reference": "71a1475826d23a4b4bc7a926a4463b54e442a37b",
+                "shasum": ""
+            },
+            "require": {
+                "pablodip/felpado": "~0.8",
+                "php": ">=5.3.3",
+                "symfony/http-kernel": "~2.3"
+            },
+            "require-dev": {
+                "akamon/mockery-callable-mock": "*@dev",
+                "mockery/mockery": "~0.8",
+                "phpunit/phpunit": "~3.7",
+                "symfony/filesystem": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Akamon\\Symfony\\ConfigurableKernel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pablo Díez",
+                    "email": "pablodip@gmail.com",
+                    "homepage": "http://github.com/pablodip"
+                }
+            ],
+            "description": "Symfony Configurable Kernel",
+            "keywords": [
+                "configurable",
+                "kernel",
+                "symfony"
+            ],
+            "time": "2014-01-10 18:22:22"
         },
         {
             "name": "behat/behat",
@@ -746,6 +851,44 @@
             "time": "2013-01-13 10:24:48"
         },
         {
+            "name": "psr/log",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Psr\\Log\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2012-12-21 11:40:51"
+        },
+        {
             "name": "symfony/config",
             "version": "v2.4.1",
             "target-dir": "Symfony/Component/Config",
@@ -845,6 +988,61 @@
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
             "time": "2014-01-01 08:14:50"
+        },
+        {
+            "name": "symfony/debug",
+            "version": "v2.4.1",
+            "target-dir": "Symfony/Component/Debug",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Debug.git",
+                "reference": "74110be5ec681a83fc5bd66dd5fd29fe85fe9c1f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/74110be5ec681a83fc5bd66dd5fd29fe85fe9c1f",
+                "reference": "74110be5ec681a83fc5bd66dd5fd29fe85fe9c1f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/http-foundation": "~2.1",
+                "symfony/http-kernel": "~2.1"
+            },
+            "suggest": {
+                "symfony/http-foundation": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Debug\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Debug Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-01-01 09:02:49"
         },
         {
             "name": "symfony/dependency-injection",
@@ -1052,6 +1250,127 @@
             "time": "2014-01-01 08:14:50"
         },
         {
+            "name": "symfony/http-foundation",
+            "version": "v2.4.1",
+            "target-dir": "Symfony/Component/HttpFoundation",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/HttpFoundation.git",
+                "reference": "6c6b8a7bcd7e2cc920cd6acace563fdbf121d844"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/6c6b8a7bcd7e2cc920cd6acace563fdbf121d844",
+                "reference": "6c6b8a7bcd7e2cc920cd6acace563fdbf121d844",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "classmap": [
+                    "Symfony/Component/HttpFoundation/Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-01-05 02:10:50"
+        },
+        {
+            "name": "symfony/http-kernel",
+            "version": "v2.4.1",
+            "target-dir": "Symfony/Component/HttpKernel",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/HttpKernel.git",
+                "reference": "0605eedeb52c4d3a3144128d8336395a57be60d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/0605eedeb52c4d3a3144128d8336395a57be60d4",
+                "reference": "0605eedeb52c4d3a3144128d8336395a57be60d4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "psr/log": "~1.0",
+                "symfony/debug": "~2.3",
+                "symfony/event-dispatcher": "~2.1",
+                "symfony/http-foundation": "~2.4"
+            },
+            "require-dev": {
+                "symfony/browser-kit": "~2.2",
+                "symfony/class-loader": "~2.1",
+                "symfony/config": "~2.0",
+                "symfony/console": "~2.2",
+                "symfony/dependency-injection": "~2.0",
+                "symfony/finder": "~2.0",
+                "symfony/process": "~2.0",
+                "symfony/routing": "~2.2",
+                "symfony/stopwatch": "~2.2",
+                "symfony/templating": "~2.2"
+            },
+            "suggest": {
+                "symfony/browser-kit": "",
+                "symfony/class-loader": "",
+                "symfony/config": "",
+                "symfony/console": "",
+                "symfony/dependency-injection": "",
+                "symfony/finder": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\HttpKernel\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpKernel Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-01-05 02:12:11"
+        },
+        {
             "name": "symfony/process",
             "version": "v2.4.1",
             "target-dir": "Symfony/Component/Process",
@@ -1206,8 +1525,10 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "pablodip/symfony-container-behat-context": 20,
+        "akamon/behat-symfony-kernel-context": 20,
         "pablodip/symfony-container-configurator": 20,
-        "pablodip/symfony-container-behat-context": 20
+        "akamon/symfony-configurable-kernel": 20
     },
     "platform": {
         "php": ">=5.4"
