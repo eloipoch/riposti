@@ -17,6 +17,7 @@
         "phpunit/phpunit": "~3.7",
         "mockery/mockery": "~0.8",
         "akamon/mockery-callable-mock": "~1.0",
+        "symfony/process": "~2.3",
 
         "pablodip/symfony-container-configurator": "*@dev",
         "pablodip/symfony-container-behat-context": "*@dev",
