@@ -1,13 +1,13 @@
 <?php
 
-namespace Pablodip\Riposti\Domain\Service;
+namespace Pablodip\Riposti\Domain\Service\ClassRelationsAssigner;
 
-use Pablodip\Riposti\Domain\Metadata\ClassRelationsMetadata;
 use Pablodip\Riposti\Domain\Model\Relation\LoadedRelation;
 use Pablodip\Riposti\Domain\Model\Relation\RelationToLoad;
+use Pablodip\Riposti\Domain\Service\ClassRelationsMetadataObtainer\ClassRelationsMetadataObtainerInterface;
 use Pablodip\Riposti\Domain\Service\RelationDataAccessor\RelationDataAccessorInterface;
 
-class ClassRelationsAssigner
+class ClassRelationsAssigner implements ClassRelationsAssignerInterface
 {
     private $dataAccessor;
 
@@ -17,14 +17,14 @@ class ClassRelationsAssigner
     }
 
     /**
-     * @param $classRelationsObtainer
+     * @param $classRelationsMetadataObtainer
      * @param $loadedRelations LoadedRelation[]
      */
-    public function __invoke($classRelationsObtainer, $loadedRelations, $objs)
+    public function __invoke(ClassRelationsMetadataObtainerInterface $classRelationsMetadataObtainer, $loadedRelations, $objs)
     {
         foreach ($loadedRelations as $r) {
             foreach ($objs as $o) {
-                if ($this->objHasRelationToLoad($classRelationsObtainer, $o, $r->getRelationToLoad())) {
+                if ($this->objHasRelationToLoad($classRelationsMetadataObtainer, $o, $r->getRelationToLoad())) {
                     $relationName = $r->getRelationToLoad()->getRelationDefinition()->getName();
                     $data = $r->getData();
 
@@ -34,10 +34,9 @@ class ClassRelationsAssigner
         }
     }
 
-    private function objHasRelationToLoad($classRelationsObtainer, $obj, RelationToLoad $relationToLoad)
+    private function objHasRelationToLoad(ClassRelationsMetadataObtainerInterface $classRelationsObtainer, $obj, RelationToLoad $relationToLoad)
     {
-        /** @var ClassRelationsMetadata $classRelationsDef */
-        $classRelationsDef = $classRelationsObtainer(get_class($obj));
+        $classRelationsDef = $classRelationsObtainer->__invoke(get_class($obj));
 
         foreach ($classRelationsDef->getRelationsDefinitions() as $r) {
             $dataToLoad = $this->dataAccessor->get($obj, $r->getName());

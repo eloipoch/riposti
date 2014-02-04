@@ -2,17 +2,27 @@
 
 namespace Pablodip\Riposti\Domain;
 
+use Pablodip\Riposti\Domain\Service\ClassRelationsAssigner\ClassRelationsAssignerInterface;
+use Pablodip\Riposti\Domain\Service\ClassRelationsMetadataObtainer\ClassRelationsMetadataObtainerInterface;
+use Pablodip\Riposti\Domain\Service\RelationsToLoadLoader\RelationsToLoadLoaderInterface;
+use Pablodip\Riposti\Domain\Service\RelationsToLoadSearcher\RelationsToLoadSearcherInterface;
+
 class RipostiLoader
 {
-    private $classRelationsObtainer;
+    private $classRelationsMetadataObtainer;
     private $relationsToLoadSearcher;
     private $relationsToLoadLoader;
     private $classRelationsAssigner;
 
-    public function __construct($classRelationsObtainer, $relationsToLoadSearcher, $relationsToLoadLoader, $classRelationsAssigner)
+    public function __construct(
+        ClassRelationsMetadataObtainerInterface $classRelationsMetadataObtainer,
+        RelationsToLoadSearcherInterface $relationsToLoadSearcher,
+        RelationsToLoadLoaderInterface $relationsToLoadLoader,
+        ClassRelationsAssignerInterface $classRelationsAssigner
+    )
     {
         $this->classRelationsAssigner  = $classRelationsAssigner;
-        $this->classRelationsObtainer  = $classRelationsObtainer;
+        $this->classRelationsMetadataObtainer  = $classRelationsMetadataObtainer;
         $this->relationsToLoadLoader   = $relationsToLoadLoader;
         $this->relationsToLoadSearcher = $relationsToLoadSearcher;
     }
@@ -23,12 +33,12 @@ class RipostiLoader
             $objs = [$objs];
         }
 
-        $relationsToLoad = call_user_func($this->relationsToLoadSearcher, $this->classRelationsObtainer, $objs);
+        $relationsToLoad = $this->relationsToLoadSearcher->__invoke($this->classRelationsMetadataObtainer, $objs);
         if (is_null($relationNamesToLoad)) {
-            $loadedRelations = call_user_func($this->relationsToLoadLoader, $relationsToLoad);
+            $loadedRelations = $this->relationsToLoadLoader->__invoke($relationsToLoad);
         } else {
-            $loadedRelations = call_user_func($this->relationsToLoadLoader, $relationsToLoad, $relationNamesToLoad);
+            $loadedRelations = $this->relationsToLoadLoader->__invoke($relationsToLoad, $relationNamesToLoad);
         }
-        call_user_func($this->classRelationsAssigner, $this->classRelationsObtainer, $loadedRelations, $objs);
+        $this->classRelationsAssigner->__invoke($this->classRelationsMetadataObtainer, $loadedRelations, $objs);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pablodip\Riposti\Domain\Tests\Service;
+namespace Pablodip\Riposti\Domain\Tests\Service\RelationsToLoadLoader;
 
 use Akamon\MockeryCallableMock\MockeryCallableMock;
 use Pablodip\Riposti\Domain\Metadata\DestinationMetadata;
@@ -10,7 +10,7 @@ use Pablodip\Riposti\Domain\Model\Relation\LoadedRelation;
 use Pablodip\Riposti\Domain\Model\Relation\RelationToLoad;
 use Pablodip\Riposti\Domain\Service\DestinationIdentityMap\DestinationIdentityMap;
 use Pablodip\Riposti\Domain\Service\RelationLoader\CallableRelationLoader;
-use Pablodip\Riposti\Domain\Service\RelationsToLoadLoader;
+use Pablodip\Riposti\Domain\Service\RelationsToLoadLoader\RelationsToLoadLoader;
 use Pablodip\Riposti\Domain\Service\RelationTypeProcessor\OneRelationTypeProcessor;
 
 class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase

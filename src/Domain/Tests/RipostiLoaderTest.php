@@ -2,29 +2,32 @@
 
 namespace Pablodip\Riposti\Domain\Tests;
 
-use Akamon\MockeryCallableMock\MockeryCallableMock;
 use Pablodip\Riposti\Domain\RipostiLoader;
+use Pablodip\Riposti\Domain\Service\ClassRelationsAssigner\ClassRelationsAssignerInterface;
+use Pablodip\Riposti\Domain\Service\ClassRelationsMetadataObtainer\ClassRelationsMetadataObtainerInterface;
+use Pablodip\Riposti\Domain\Service\RelationsToLoadLoader\RelationsToLoadLoaderInterface;
+use Pablodip\Riposti\Domain\Service\RelationsToLoadSearcher\RelationsToLoadSearcherInterface;
 
-class RipostiLoaderTest extends \PHPUnit_Framework_TestCase
+class RipostiLoaderTest extends RipostiTestCase
 {
     /** @test */
     public function mocking()
     {
-        $classRelationsObtainer = new MockeryCallableMock();
-        $searcher = new MockeryCallableMock();
-        $loader = new MockeryCallableMock();
-        $assigner = new MockeryCallableMock();
+        $classRelationsMetadataObtainer = $this->mock(ClassRelationsMetadataObtainerInterface::class);
+        $searcher = $this->mock(RelationsToLoadSearcherInterface::class);
+        $loader = $this->mock(RelationsToLoadLoaderInterface::class);
+        $assigner = $this->mock(ClassRelationsAssignerInterface::class);
 
-        $ripostiLoader = new RipostiLoader($classRelationsObtainer, $searcher, $loader, $assigner);
+        $ripostiLoader = new RipostiLoader($classRelationsMetadataObtainer, $searcher, $loader, $assigner);
 
         $objs = [new \stdClass(), new \stdClass()];
 
         $relationsToLoad = new \ArrayObject();
         $loadedRelations = new \ArrayObject();
 
-        $searcher->should()->with($classRelationsObtainer, $objs)->once()->andReturn($relationsToLoad)->ordered();
-        $loader->should()->with($relationsToLoad)->once()->andReturn($loadedRelations)->ordered();
-        $assigner->should()->with($classRelationsObtainer, $loadedRelations, $objs)->once()->ordered();
+        $searcher->shouldReceive('__invoke')->with($classRelationsMetadataObtainer, $objs)->once()->andReturn($relationsToLoad)->ordered();
+        $loader->shouldReceive('__invoke')->with($relationsToLoad)->once()->andReturn($loadedRelations)->ordered();
+        $assigner->shouldReceive('__invoke')->with($classRelationsMetadataObtainer, $loadedRelations, $objs)->once()->ordered();
 
         $ripostiLoader->load($objs);
     }
@@ -32,21 +35,21 @@ class RipostiLoaderTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_admits_one_single_obj()
     {
-        $classRelationsObtainer = new MockeryCallableMock();
-        $searcher = new MockeryCallableMock();
-        $loader = new MockeryCallableMock();
-        $assigner = new MockeryCallableMock();
+        $classRelationsMetadataObtainer = $this->mock(ClassRelationsMetadataObtainerInterface::class);
+        $searcher = $this->mock(RelationsToLoadSearcherInterface::class);
+        $loader = $this->mock(RelationsToLoadLoaderInterface::class);
+        $assigner = $this->mock(ClassRelationsAssignerInterface::class);
 
-        $ripostiLoader = new RipostiLoader($classRelationsObtainer, $searcher, $loader, $assigner);
+        $ripostiLoader = new RipostiLoader($classRelationsMetadataObtainer, $searcher, $loader, $assigner);
 
         $obj = new \stdClass();
 
         $relationsToLoad = new \ArrayObject();
         $loadedRelations = new \ArrayObject();
 
-        $searcher->should()->with($classRelationsObtainer, [$obj])->once()->andReturn($relationsToLoad)->ordered();
-        $loader->should()->with($relationsToLoad)->once()->andReturn($loadedRelations)->ordered();
-        $assigner->should()->with($classRelationsObtainer, $loadedRelations, [$obj])->once()->ordered();
+        $searcher->shouldReceive('__invoke')->with($classRelationsMetadataObtainer, [$obj])->once()->andReturn($relationsToLoad)->ordered();
+        $loader->shouldReceive('__invoke')->with($relationsToLoad)->once()->andReturn($loadedRelations)->ordered();
+        $assigner->shouldReceive('__invoke')->with($classRelationsMetadataObtainer, $loadedRelations, [$obj])->once()->ordered();
 
         $ripostiLoader->load($obj);
     }
@@ -54,12 +57,12 @@ class RipostiLoaderTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_admits_relation_names_to_load()
     {
-        $classRelationsObtainer = new MockeryCallableMock();
-        $searcher = new MockeryCallableMock();
-        $loader = new MockeryCallableMock();
-        $assigner = new MockeryCallableMock();
+        $classRelationsMetadataObtainer = $this->mock(ClassRelationsMetadataObtainerInterface::class);
+        $searcher = $this->mock(RelationsToLoadSearcherInterface::class);
+        $loader = $this->mock(RelationsToLoadLoaderInterface::class);
+        $assigner = $this->mock(ClassRelationsAssignerInterface::class);
 
-        $ripostiLoader = new RipostiLoader($classRelationsObtainer, $searcher, $loader, $assigner);
+        $ripostiLoader = new RipostiLoader($classRelationsMetadataObtainer, $searcher, $loader, $assigner);
 
         $objs = [new \stdClass(), new \stdClass()];
         $relationNamesToLoad = ['foo'];
@@ -67,9 +70,9 @@ class RipostiLoaderTest extends \PHPUnit_Framework_TestCase
         $relationsToLoad = new \ArrayObject();
         $loadedRelations = new \ArrayObject();
 
-        $searcher->should()->with($classRelationsObtainer, $objs)->once()->andReturn($relationsToLoad)->ordered();
-        $loader->should()->with($relationsToLoad, $relationNamesToLoad)->once()->andReturn($loadedRelations)->ordered();
-        $assigner->should()->with($classRelationsObtainer, $loadedRelations, $objs)->once()->ordered();
+        $searcher->shouldReceive('__invoke')->with($classRelationsMetadataObtainer, $objs)->once()->andReturn($relationsToLoad)->ordered();
+        $loader->shouldReceive('__invoke')->with($relationsToLoad, $relationNamesToLoad)->once()->andReturn($loadedRelations)->ordered();
+        $assigner->shouldReceive('__invoke')->with($classRelationsMetadataObtainer, $loadedRelations, $objs)->once()->ordered();
 
         $ripostiLoader->load($objs, $relationNamesToLoad);
     }

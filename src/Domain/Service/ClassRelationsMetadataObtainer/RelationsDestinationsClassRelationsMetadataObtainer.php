@@ -1,12 +1,12 @@
 <?php
 
-namespace Pablodip\Riposti\Domain\Service\ClassRelationsDefinitionObtainer;
+namespace Pablodip\Riposti\Domain\Service\ClassRelationsMetadataObtainer;
 
 use Pablodip\Riposti\Domain\Metadata\ClassRelationsMetadata;
 use Pablodip\Riposti\Domain\Metadata\DestinationMetadata;
 use Pablodip\Riposti\Domain\Metadata\RelationMetadata;
 
-class RelationsDestinationsClassRelationsDefinitionObtainer
+class RelationsDestinationsClassRelationsMetadataObtainer implements ClassRelationsMetadataObtainerInterface
 {
     private $classRelationsDefs = [];
 
@@ -27,12 +27,12 @@ class RelationsDestinationsClassRelationsDefinitionObtainer
         }
     }
 
-    public function __invoke($class)
+    public function __invoke($classMetadata)
     {
-        if (!isset($this->classRelationsDefs[$class])) {
-            throw new \RuntimeException(sprintf('The class "%s" does not have class relations defined.', $class));
+        if (!isset($this->classRelationsDefs[$classMetadata])) {
+            throw new \RuntimeException(sprintf('The class "%s" does not have class relations defined.', $classMetadata));
         }
 
-        return $this->classRelationsDefs[$class];
+        return $this->classRelationsDefs[$classMetadata];
     }
 }

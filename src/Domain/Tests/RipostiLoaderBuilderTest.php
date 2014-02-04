@@ -2,25 +2,26 @@
 
 namespace Pablodip\Riposti\Domain\Tests;
 
-use Akamon\MockeryCallableMock\MockeryCallableMock;
 use Pablodip\Riposti\Domain\Model\NotLoadedRelation\IdOneTypeNotLoadedRelation;
 use Pablodip\Riposti\Domain\RipostiLoaderBuilder;
-use Pablodip\Riposti\Domain\Service\ClassRelationsDefinitionObtainer\RelationsDestinationsClassRelationsDefinitionObtainer;
+use Pablodip\Riposti\Domain\Service\ClassRelationsMetadataObtainer\ClassRelationsMetadataObtainerInterface;
+use Pablodip\Riposti\Domain\Service\ClassRelationsMetadataObtainer\RelationsDestinationsClassRelationsMetadataObtainer;
 use Pablodip\Riposti\Domain\Service\RelationDataAccessor\PropertyReflectionRelationDataAccessor;
-use Pablodip\Riposti\Domain\Tests\Service\RelationDataAccessor\PropertyReflectionRelationDataAccessorTest;
+use Pablodip\Riposti\Domain\Service\RelationDataAccessor\RelationDataAccessorInterface;
+use Pablodip\Riposti\Domain\Service\RelationLoader\RelationLoaderInterface;
 use Pablodip\Riposti\Domain\Tests\Stub\ObjStub1;
 use Pablodip\Riposti\Domain\Tests\Stub\ObjStub2;
 
-class RipostiLoaderBuilderTest extends \PHPUnit_Framework_TestCase
+class RipostiLoaderBuilderTest extends RipostiTestCase
 {
     /** @test */
     public function it_build_a_riposti_loader()
     {
-        $classRelationsDefinitionObtainer = new MockeryCallableMock();
-        $relationDataAccessor = \Mockery::mock('Pablodip\Riposti\Domain\Service\RelationDataAccessor\RelationDataAccessorInterface');
-        $relationLoader = \Mockery::mock('Pablodip\Riposti\Domain\Service\RelationLoader\RelationLoaderInterface');
+        $classRelationsMetadataObtainer = $this->mock(ClassRelationsMetadataObtainerInterface::class);
+        $relationDataAccessor = $this->mock(RelationDataAccessorInterface::class);
+        $relationLoader = $this->mock(RelationLoaderInterface::class);
 
-        $builder = new RipostiLoaderBuilder($classRelationsDefinitionObtainer, $relationDataAccessor, $relationLoader);
+        $builder = new RipostiLoaderBuilder($classRelationsMetadataObtainer, $relationDataAccessor, $relationLoader);
 
         $loader = $builder->build();
         $this->assertInstanceOf('Pablodip\Riposti\Domain\RipostiLoader', $loader);
@@ -41,11 +42,11 @@ class RipostiLoaderBuilderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $classRelationsDefinitionObtainer = new RelationsDestinationsClassRelationsDefinitionObtainer($relations, $destinations);
+        $classRelationsMetadataObtainer = new RelationsDestinationsClassRelationsMetadataObtainer($relations, $destinations);
         $relationDataAccessor = new PropertyReflectionRelationDataAccessor();
-        $relationLoader = \Mockery::mock('Pablodip\Riposti\Domain\Service\RelationLoader\RelationLoaderInterface');
+        $relationLoader = $this->mock(RelationLoaderInterface::class);
 
-        $builder = new RipostiLoaderBuilder($classRelationsDefinitionObtainer, $relationDataAccessor, $relationLoader);
+        $builder = new RipostiLoaderBuilder($classRelationsMetadataObtainer, $relationDataAccessor, $relationLoader);
         $loader = $builder->build();
 
         $stub1 = (new ObjStub1())->setA(new IdOneTypeNotLoadedRelation('bar'));
@@ -55,7 +56,5 @@ class RipostiLoaderBuilderTest extends \PHPUnit_Framework_TestCase
 
         $loader->load($stub1);
         $this->assertSame($stub2, $stub1->getA());
-
-
     }
 }

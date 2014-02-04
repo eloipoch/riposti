@@ -1,13 +1,13 @@
 <?php
 
-namespace Pablodip\Riposti\Domain\Tests\Service\ClassRelationsDefinitionObtainer;
+namespace Pablodip\Riposti\Domain\Tests\Service\ClassRelationsMetadataObtainer;
 
 use Pablodip\Riposti\Domain\Metadata\ClassRelationsMetadata;
 use Pablodip\Riposti\Domain\Metadata\DestinationMetadata;
 use Pablodip\Riposti\Domain\Metadata\RelationMetadata;
-use Pablodip\Riposti\Domain\Service\ClassRelationsDefinitionObtainer\RelationsDestinationsClassRelationsDefinitionObtainer;
+use Pablodip\Riposti\Domain\Service\ClassRelationsMetadataObtainer\RelationsDestinationsClassRelationsMetadataObtainer;
 
-class RelationsDefinitionsClassRelationsObtainerTest extends \PHPUnit_Framework_TestCase
+class RelationsDefinitionsClassRelationsMetadataObtainerTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
     public function it_works()
@@ -26,7 +26,7 @@ class RelationsDefinitionsClassRelationsObtainerTest extends \PHPUnit_Framework_
             ]
         ];
 
-        $obtainer = new RelationsDestinationsClassRelationsDefinitionObtainer($relationsInfo, $destinationsInfo);
+        $obtainer = new RelationsDestinationsClassRelationsMetadataObtainer($relationsInfo, $destinationsInfo);
 
         $articleRelationsDef = new ClassRelationsMetadata('Model\Article', [
             new RelationMetadata('author', 'one', new DestinationMetadata('author_dest', 'foo'))

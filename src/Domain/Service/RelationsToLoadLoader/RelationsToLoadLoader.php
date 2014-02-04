@@ -1,15 +1,14 @@
 <?php
 
-namespace Pablodip\Riposti\Domain\Service;
+namespace Pablodip\Riposti\Domain\Service\RelationsToLoadLoader;
 
-use Pablodip\Riposti\Domain\Metadata\DestinationMetadata;
 use Pablodip\Riposti\Domain\Model\Relation\LoadedRelation;
 use Pablodip\Riposti\Domain\Model\Relation\RelationToLoad;
 use Pablodip\Riposti\Domain\Service\DestinationIdentityMap\DestinationIdentityMapInterface;
 use Pablodip\Riposti\Domain\Service\RelationLoader\RelationLoaderInterface;
 use Pablodip\Riposti\Domain\Service\RelationTypeProcessor\RelationTypeProcessorInterface;
 
-class RelationsToLoadLoader
+class RelationsToLoadLoader implements RelationsToLoadLoaderInterface
 {
     private $relationTypeProcessorObtainer;
     private $destinationIdentityMap;

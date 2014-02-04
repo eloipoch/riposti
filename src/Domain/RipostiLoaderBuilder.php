@@ -2,21 +2,24 @@
 
 namespace Pablodip\Riposti\Domain;
 
-use Pablodip\Riposti\Domain\Service\ClassRelationsAssigner;
+use Pablodip\Riposti\Domain\Service\ClassRelationsAssigner\ClassRelationsAssigner;
+use Pablodip\Riposti\Domain\Service\ClassRelationsMetadataObtainer\ClassRelationsMetadataObtainerInterface;
 use Pablodip\Riposti\Domain\Service\DestinationIdentityMap\DestinationIdentityMap;
-use Pablodip\Riposti\Domain\Service\RelationsToLoadLoader;
-use Pablodip\Riposti\Domain\Service\RelationsToLoadSearcher;
+use Pablodip\Riposti\Domain\Service\RelationDataAccessor\RelationDataAccessorInterface;
+use Pablodip\Riposti\Domain\Service\RelationLoader\RelationLoaderInterface;
+use Pablodip\Riposti\Domain\Service\RelationsToLoadLoader\RelationsToLoadLoader;
+use Pablodip\Riposti\Domain\Service\RelationsToLoadSearcher\RelationsToLoadSearcher;
 use Pablodip\Riposti\Domain\Service\RelationTypeProcessorObtainer\DefaultRelationTypeProcessorObtainer;
 
 class RipostiLoaderBuilder
 {
-    private $classRelationsDefinitionObtainer;
+    private $classRelationsMetadataObtainer;
     private $relationDataAccessor;
     private $relationLoader;
 
-    public function __construct($classRelationsDefinitionObtainer, $relationDataAccessor, $relationLoader)
+    public function __construct(ClassRelationsMetadataObtainerInterface $classRelationsMetadataObtainer, RelationDataAccessorInterface $relationDataAccessor, RelationLoaderInterface $relationLoader)
     {
-        $this->classRelationsDefinitionObtainer = $classRelationsDefinitionObtainer;
+        $this->classRelationsMetadataObtainer = $classRelationsMetadataObtainer;
         $this->relationDataAccessor             = $relationDataAccessor;
         $this->relationLoader                   = $relationLoader;
     }
@@ -27,7 +30,7 @@ class RipostiLoaderBuilder
     public function build()
     {
         return new RipostiLoader(
-            $this->classRelationsDefinitionObtainer,
+            $this->classRelationsMetadataObtainer,
             new RelationsToLoadSearcher($this->relationDataAccessor),
             new RelationsToLoadLoader(
                 $this->createRelationTypeProcessorObtainer(),
