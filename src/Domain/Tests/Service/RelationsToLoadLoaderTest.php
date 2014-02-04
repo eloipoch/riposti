@@ -3,10 +3,10 @@
 namespace Pablodip\Riposti\Domain\Tests\Service;
 
 use Akamon\MockeryCallableMock\MockeryCallableMock;
-use Pablodip\Riposti\Domain\Model\Destination\DestinationDefinition;
+use Pablodip\Riposti\Domain\Metadata\DestinationMetadata;
+use Pablodip\Riposti\Domain\Metadata\RelationMetadata;
 use Pablodip\Riposti\Domain\Model\NotLoadedRelation\IdOneTypeNotLoadedRelation;
-use Pablodip\Riposti\Domain\Model\Relation\RelationDefinition;
-use Pablodip\Riposti\Domain\Model\Relation\RelationLoaded;
+use Pablodip\Riposti\Domain\Model\Relation\LoadedRelation;
 use Pablodip\Riposti\Domain\Model\Relation\RelationToLoad;
 use Pablodip\Riposti\Domain\Service\DestinationIdentityMap\DestinationIdentityMap;
 use Pablodip\Riposti\Domain\Service\RelationLoader\CallableRelationLoader;
@@ -32,8 +32,8 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
 
         $loaderInfo = new MockeryCallableMock();
 
-        $destinationDef = new DestinationDefinition('foo', $loaderInfo);
-        $relationDef = new RelationDefinition('bar', 'one', $destinationDef);
+        $destinationDef = new DestinationMetadata('foo', $loaderInfo);
+        $relationDef = new RelationMetadata('bar', 'one', $destinationDef);
 
         $relationsToLoad = [
             new RelationToLoad($relationDef, $notLoadedRelation)
@@ -43,7 +43,7 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
 
         $result = $loader($relationsToLoad);
         $expected = [
-            new RelationLoaded($relationsToLoad[0], $data)
+            new LoadedRelation($relationsToLoad[0], $data)
         ];
 
         $this->assertEquals($expected, $result);
@@ -70,10 +70,10 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
         $loaderInfo1 = new MockeryCallableMock();
         $loaderInfo2 = new MockeryCallableMock();
 
-        $destinationDef1 = new DestinationDefinition('foo1', $loaderInfo1);
-        $destinationDef2 = new DestinationDefinition('foo2', $loaderInfo2);
-        $relationDef1 = new RelationDefinition('bar', 'one', $destinationDef1);
-        $relationDef2 = new RelationDefinition('bar', 'one', $destinationDef2);
+        $destinationDef1 = new DestinationMetadata('foo1', $loaderInfo1);
+        $destinationDef2 = new DestinationMetadata('foo2', $loaderInfo2);
+        $relationDef1 = new RelationMetadata('bar', 'one', $destinationDef1);
+        $relationDef2 = new RelationMetadata('bar', 'one', $destinationDef2);
 
         $relationsToLoad = [
             new RelationToLoad($relationDef1, $notLoadedRelation1),
@@ -85,8 +85,8 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
 
         $result = $loader($relationsToLoad);
         $expected = [
-            new RelationLoaded($relationsToLoad[0], $data1),
-            new RelationLoaded($relationsToLoad[1], $data2)
+            new LoadedRelation($relationsToLoad[0], $data1),
+            new LoadedRelation($relationsToLoad[1], $data2)
         ];
 
         $this->assertEquals($expected, $result);
@@ -110,9 +110,9 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
 
         $loaderInfo = new MockeryCallableMock();
 
-        $destinationDef = new DestinationDefinition('foo', $loaderInfo);
-        $relationDef1 = new RelationDefinition('bar', 'one', $destinationDef);
-        $relationDef2 = new RelationDefinition('bar', 'one', $destinationDef);
+        $destinationDef = new DestinationMetadata('foo', $loaderInfo);
+        $relationDef1 = new RelationMetadata('bar', 'one', $destinationDef);
+        $relationDef2 = new RelationMetadata('bar', 'one', $destinationDef);
 
         $relationsToLoad = [
             new RelationToLoad($relationDef1, new IdOneTypeNotLoadedRelation($id1)),
@@ -123,8 +123,8 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
 
         $result = $loader($relationsToLoad);
         $expected = [
-            new RelationLoaded($relationsToLoad[0], $data1),
-            new RelationLoaded($relationsToLoad[1], $data2)
+            new LoadedRelation($relationsToLoad[0], $data1),
+            new LoadedRelation($relationsToLoad[1], $data2)
         ];
 
         $this->assertEquals($expected, $result);
@@ -148,8 +148,8 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
 
         $loaderInfo = new MockeryCallableMock();
 
-        $destinationDef = new DestinationDefinition('foo', $loaderInfo);
-        $relationDef = new RelationDefinition('bar', 'one', $destinationDef);
+        $destinationDef = new DestinationMetadata('foo', $loaderInfo);
+        $relationDef = new RelationMetadata('bar', 'one', $destinationDef);
 
         $relationsToLoad = [
             new RelationToLoad($relationDef, new IdOneTypeNotLoadedRelation($id))
@@ -157,7 +157,7 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
 
         $result = $loader($relationsToLoad);
         $expected = [
-            new RelationLoaded($relationsToLoad[0], $data)
+            new LoadedRelation($relationsToLoad[0], $data)
         ];
 
         $this->assertEquals($expected, $result);
@@ -185,10 +185,10 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
         $loaderInfo1 = new MockeryCallableMock();
         $loaderInfo2 = new MockeryCallableMock();
 
-        $destinationDef1 = new DestinationDefinition('foo1', $loaderInfo1);
-        $destinationDef2 = new DestinationDefinition('foo2', $loaderInfo2);
-        $relationDef1 = new RelationDefinition('bar', 'one', $destinationDef1);
-        $relationDef2 = new RelationDefinition('bar', 'one', $destinationDef2);
+        $destinationDef1 = new DestinationMetadata('foo1', $loaderInfo1);
+        $destinationDef2 = new DestinationMetadata('foo2', $loaderInfo2);
+        $relationDef1 = new RelationMetadata('bar', 'one', $destinationDef1);
+        $relationDef2 = new RelationMetadata('bar', 'one', $destinationDef2);
 
         $relationsToLoad = [
             new RelationToLoad($relationDef1, new IdOneTypeNotLoadedRelation($id1)),
@@ -197,8 +197,8 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
 
         $result = $loader($relationsToLoad);
         $expected = [
-            new RelationLoaded($relationsToLoad[0], $data1),
-            new RelationLoaded($relationsToLoad[1], $data2)
+            new LoadedRelation($relationsToLoad[0], $data1),
+            new LoadedRelation($relationsToLoad[1], $data2)
         ];
 
         $this->assertEquals($expected, $result);
@@ -223,10 +223,10 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
         $loaderInfo1 = new MockeryCallableMock();
         $loaderInfo2 = new MockeryCallableMock();
 
-        $destinationDef1 = new DestinationDefinition('_', $loaderInfo1);
-        $destinationDef2 = new DestinationDefinition('_', $loaderInfo2);
-        $relationDef1 = new RelationDefinition('foo1', 'one', $destinationDef1);
-        $relationDef2 = new RelationDefinition('foo2', 'one', $destinationDef2);
+        $destinationDef1 = new DestinationMetadata('_', $loaderInfo1);
+        $destinationDef2 = new DestinationMetadata('_', $loaderInfo2);
+        $relationDef1 = new RelationMetadata('foo1', 'one', $destinationDef1);
+        $relationDef2 = new RelationMetadata('foo2', 'one', $destinationDef2);
 
         $relationsToLoad = [
             new RelationToLoad($relationDef1, new IdOneTypeNotLoadedRelation($id1)),
@@ -237,7 +237,7 @@ class RelationsToLoadLoaderTest extends \PHPUnit_Framework_TestCase
 
         $result = $loader($relationsToLoad, ['foo2']);
         $expected = [
-            new RelationLoaded($relationsToLoad[1], $data2)
+            new LoadedRelation($relationsToLoad[1], $data2)
         ];
 
         $this->assertEquals($expected, $result);

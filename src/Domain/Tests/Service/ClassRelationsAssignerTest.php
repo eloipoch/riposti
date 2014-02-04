@@ -3,11 +3,11 @@
 namespace Pablodip\Riposti\Domain\Tests\Service;
 
 use Akamon\MockeryCallableMock\MockeryCallableMock;
-use Pablodip\Riposti\Domain\Model\ClassRelations\ClassRelationsDefinition;
-use Pablodip\Riposti\Domain\Model\Destination\DestinationDefinition;
+use Pablodip\Riposti\Domain\Metadata\ClassRelationsMetadata;
+use Pablodip\Riposti\Domain\Metadata\DestinationMetadata;
+use Pablodip\Riposti\Domain\Metadata\RelationMetadata;
 use Pablodip\Riposti\Domain\Model\NotLoadedRelation\IdOneTypeNotLoadedRelation;
-use Pablodip\Riposti\Domain\Model\Relation\RelationDefinition;
-use Pablodip\Riposti\Domain\Model\Relation\RelationLoaded;
+use Pablodip\Riposti\Domain\Model\Relation\LoadedRelation;
 use Pablodip\Riposti\Domain\Model\Relation\RelationToLoad;
 use Pablodip\Riposti\Domain\Service\ClassRelationsAssigner;
 use Pablodip\Riposti\Domain\Service\RelationDataAccessor\PropertyReflectionRelationDataAccessor;
@@ -24,16 +24,16 @@ class ClassRelationsAssignerTest extends \PHPUnit_Framework_TestCase
         $id = 'foo';
         $data = new \stdClass();
 
-        $destinationDef = new DestinationDefinition('_', '_');
-        $aRelationDef = new RelationDefinition('a', '_', $destinationDef);
+        $destinationDef = new DestinationMetadata('_', '_');
+        $aRelationDef = new RelationMetadata('a', '_', $destinationDef);
         $relationToLoad = new RelationToLoad($aRelationDef, new IdOneTypeNotLoadedRelation($id));
 
-        $stub1RelationsDef = new ClassRelationsDefinition('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef]);
+        $stub1RelationsDef = new ClassRelationsMetadata('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef]);
         $classRelationsObtainer = new MockeryCallableMock();
         $classRelationsObtainer->should()->with('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1')->andReturn($stub1RelationsDef);
 
         $loadedRelations = [
-            new RelationLoaded($relationToLoad, $data)
+            new LoadedRelation($relationToLoad, $data)
         ];
 
         $objs = [
@@ -57,17 +57,17 @@ class ClassRelationsAssignerTest extends \PHPUnit_Framework_TestCase
         $id2 = 'bar';
         $data2 = new \stdClass();
 
-        $destinationDef = new DestinationDefinition('_', '_');
-        $aRelationDef = new RelationDefinition('a', '_', $destinationDef);
-        $cRelationDef = new RelationDefinition('c', '_', $destinationDef);
+        $destinationDef = new DestinationMetadata('_', '_');
+        $aRelationDef = new RelationMetadata('a', '_', $destinationDef);
+        $cRelationDef = new RelationMetadata('c', '_', $destinationDef);
 
-        $stub1RelationsDef = new ClassRelationsDefinition('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef, $cRelationDef]);
+        $stub1RelationsDef = new ClassRelationsMetadata('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef, $cRelationDef]);
         $classRelationsObtainer = new MockeryCallableMock();
         $classRelationsObtainer->should()->with('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1')->andReturn($stub1RelationsDef);
 
         $loadedRelations = [
-            new RelationLoaded(new RelationToLoad($aRelationDef, new IdOneTypeNotLoadedRelation($id1)), $data1),
-            new RelationLoaded(new RelationToLoad($cRelationDef, new IdOneTypeNotLoadedRelation($id2)), $data2),
+            new LoadedRelation(new RelationToLoad($aRelationDef, new IdOneTypeNotLoadedRelation($id1)), $data1),
+            new LoadedRelation(new RelationToLoad($cRelationDef, new IdOneTypeNotLoadedRelation($id2)), $data2),
         ];
 
         $objs = [
@@ -92,16 +92,16 @@ class ClassRelationsAssignerTest extends \PHPUnit_Framework_TestCase
         $id = 'foo';
         $data = new \stdClass();
 
-        $destinationDef = new DestinationDefinition('_', '_');
-        $aRelationDef = new RelationDefinition('a', '_', $destinationDef);
+        $destinationDef = new DestinationMetadata('_', '_');
+        $aRelationDef = new RelationMetadata('a', '_', $destinationDef);
         $relationToLoad = new RelationToLoad($aRelationDef, new IdOneTypeNotLoadedRelation($id));
 
-        $stub1RelationsDef = new ClassRelationsDefinition('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef]);
+        $stub1RelationsDef = new ClassRelationsMetadata('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef]);
         $classRelationsObtainer = new MockeryCallableMock();
         $classRelationsObtainer->should()->with('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1')->andReturn($stub1RelationsDef);
 
         $loadedRelations = [
-            new RelationLoaded($relationToLoad, $data)
+            new LoadedRelation($relationToLoad, $data)
         ];
 
         $objs = [

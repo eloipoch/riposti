@@ -2,8 +2,8 @@
 
 namespace Pablodip\Riposti\Domain\Service;
 
-use Pablodip\Riposti\Domain\Model\Destination\DestinationDefinition;
-use Pablodip\Riposti\Domain\Model\Relation\RelationLoaded;
+use Pablodip\Riposti\Domain\Metadata\DestinationMetadata;
+use Pablodip\Riposti\Domain\Model\Relation\LoadedRelation;
 use Pablodip\Riposti\Domain\Model\Relation\RelationToLoad;
 use Pablodip\Riposti\Domain\Service\DestinationIdentityMap\DestinationIdentityMapInterface;
 use Pablodip\Riposti\Domain\Service\RelationLoader\RelationLoaderInterface;
@@ -49,7 +49,7 @@ class RelationsToLoadLoader
         }
 
         foreach ($idsToLoad as $v) {
-            /** @var DestinationDefinition $destinationDef */
+            /** @var \Pablodip\Riposti\Domain\Metadata\DestinationMetadata $destinationDef */
             $destinationDef = $v['destination'];
 
             $datas = $this->loader->load($destinationDef->getLoaderInfo(), $v['ids']);
@@ -75,7 +75,7 @@ class RelationsToLoadLoader
                 $datas[] = $this->destinationIdentityMap->get($destionationName, $id);
             }
 
-            $loadedRelations[] = new RelationLoaded($r, $relationTypeProcessor->getDataFromLoadedDatas($datas));
+            $loadedRelations[] = new LoadedRelation($r, $relationTypeProcessor->getDataFromLoadedDatas($datas));
         }
 
         return $loadedRelations;

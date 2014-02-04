@@ -2,9 +2,9 @@
 
 namespace Pablodip\Riposti\Domain\Service\ClassRelationsDefinitionObtainer;
 
-use Pablodip\Riposti\Domain\Model\ClassRelations\ClassRelationsDefinition;
-use Pablodip\Riposti\Domain\Model\Destination\DestinationDefinition;
-use Pablodip\Riposti\Domain\Model\Relation\RelationDefinition;
+use Pablodip\Riposti\Domain\Metadata\ClassRelationsMetadata;
+use Pablodip\Riposti\Domain\Metadata\DestinationMetadata;
+use Pablodip\Riposti\Domain\Metadata\RelationMetadata;
 
 class RelationsDestinationsClassRelationsDefinitionObtainer
 {
@@ -14,16 +14,16 @@ class RelationsDestinationsClassRelationsDefinitionObtainer
     {
         $destinations = [];
         foreach ($destinationsInfo as $name => $destinationInfo) {
-            $destinations[$name] = new DestinationDefinition($name, $destinationInfo['loader_info']);
+            $destinations[$name] = new DestinationMetadata($name, $destinationInfo['loader_info']);
         }
 
         foreach ($relationsInfo as $class => $relationInfoses) {
             $relations = [];
             foreach ($relationInfoses as $name => $relationInfo) {
-                $relations[] = new RelationDefinition($name, $relationInfo['type'], $destinations[$relationInfo['destination']]);
+                $relations[] = new RelationMetadata($name, $relationInfo['type'], $destinations[$relationInfo['destination']]);
             }
 
-            $this->classRelationsDefs[$class] = new ClassRelationsDefinition($class, $relations);
+            $this->classRelationsDefs[$class] = new ClassRelationsMetadata($class, $relations);
         }
     }
 

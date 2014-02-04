@@ -1,10 +1,8 @@
 <?php
 
-namespace Pablodip\Riposti\Domain\Model\ClassRelations;
+namespace Pablodip\Riposti\Domain\Metadata;
 
-use Pablodip\Riposti\Domain\Model\Relation\RelationDefinition;
-
-class ClassRelationsDefinition
+class ClassRelationsMetadata
 {
     private $class;
     private $relationsDefinitions;
@@ -21,7 +19,7 @@ class ClassRelationsDefinition
     }
 
     /**
-     * @return RelationDefinition[]
+     * @return RelationMetadata[]
      */
     public function getRelationsDefinitions()
     {

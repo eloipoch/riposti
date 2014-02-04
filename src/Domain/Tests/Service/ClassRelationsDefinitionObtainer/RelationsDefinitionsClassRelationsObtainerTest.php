@@ -2,9 +2,9 @@
 
 namespace Pablodip\Riposti\Domain\Tests\Service\ClassRelationsDefinitionObtainer;
 
-use Pablodip\Riposti\Domain\Model\ClassRelations\ClassRelationsDefinition;
-use Pablodip\Riposti\Domain\Model\Destination\DestinationDefinition;
-use Pablodip\Riposti\Domain\Model\Relation\RelationDefinition;
+use Pablodip\Riposti\Domain\Metadata\ClassRelationsMetadata;
+use Pablodip\Riposti\Domain\Metadata\DestinationMetadata;
+use Pablodip\Riposti\Domain\Metadata\RelationMetadata;
 use Pablodip\Riposti\Domain\Service\ClassRelationsDefinitionObtainer\RelationsDestinationsClassRelationsDefinitionObtainer;
 
 class RelationsDefinitionsClassRelationsObtainerTest extends \PHPUnit_Framework_TestCase
@@ -28,8 +28,8 @@ class RelationsDefinitionsClassRelationsObtainerTest extends \PHPUnit_Framework_
 
         $obtainer = new RelationsDestinationsClassRelationsDefinitionObtainer($relationsInfo, $destinationsInfo);
 
-        $articleRelationsDef = new ClassRelationsDefinition('Model\Article', [
-            new RelationDefinition('author', 'one', new DestinationDefinition('author_dest', 'foo'))
+        $articleRelationsDef = new ClassRelationsMetadata('Model\Article', [
+            new RelationMetadata('author', 'one', new DestinationMetadata('author_dest', 'foo'))
         ]);
         $this->assertEquals($articleRelationsDef, $obtainer('Model\Article'));
 

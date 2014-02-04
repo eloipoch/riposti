@@ -1,16 +1,14 @@
 <?php
 
-namespace Pablodip\Riposti\Domain\Model\Relation;
+namespace Pablodip\Riposti\Domain\Metadata;
 
-use Pablodip\Riposti\Domain\Model\Destination\DestinationDefinition;
-
-class RelationDefinition
+class RelationMetadata
 {
     private $name;
     private $type;
     private $destinationDefinition;
 
-    public function __construct($name, $type, DestinationDefinition $destinationDefinition)
+    public function __construct($name, $type, DestinationMetadata $destinationDefinition)
     {
         $this->destinationDefinition = $destinationDefinition;
         $this->type = $type;

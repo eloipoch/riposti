@@ -2,8 +2,8 @@
 
 namespace Pablodip\Riposti\Domain\Service;
 
-use Pablodip\Riposti\Domain\Model\ClassRelations\ClassRelationsDefinition;
-use Pablodip\Riposti\Domain\Model\Relation\RelationLoaded;
+use Pablodip\Riposti\Domain\Metadata\ClassRelationsMetadata;
+use Pablodip\Riposti\Domain\Model\Relation\LoadedRelation;
 use Pablodip\Riposti\Domain\Model\Relation\RelationToLoad;
 use Pablodip\Riposti\Domain\Service\RelationDataAccessor\RelationDataAccessorInterface;
 
@@ -18,7 +18,7 @@ class ClassRelationsAssigner
 
     /**
      * @param $classRelationsObtainer
-     * @param $loadedRelations RelationLoaded[]
+     * @param $loadedRelations LoadedRelation[]
      */
     public function __invoke($classRelationsObtainer, $loadedRelations, $objs)
     {
@@ -36,7 +36,7 @@ class ClassRelationsAssigner
 
     private function objHasRelationToLoad($classRelationsObtainer, $obj, RelationToLoad $relationToLoad)
     {
-        /** @var ClassRelationsDefinition $classRelationsDef */
+        /** @var ClassRelationsMetadata $classRelationsDef */
         $classRelationsDef = $classRelationsObtainer(get_class($obj));
 
         foreach ($classRelationsDef->getRelationsDefinitions() as $r) {

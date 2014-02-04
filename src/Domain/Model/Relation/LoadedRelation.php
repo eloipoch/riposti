@@ -2,7 +2,7 @@
 
 namespace Pablodip\Riposti\Domain\Model\Relation;
 
-class RelationLoaded
+class LoadedRelation
 {
     private $relationToLoad;
     private $data;

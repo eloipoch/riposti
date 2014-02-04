@@ -2,7 +2,7 @@
 
 namespace Pablodip\Riposti\Domain\Service;
 
-use Pablodip\Riposti\Domain\Model\ClassRelations\ClassRelationsDefinition;
+use Pablodip\Riposti\Domain\Metadata\ClassRelationsMetadata;
 use Pablodip\Riposti\Domain\Model\NotLoadedRelation\NotLoadedRelationInterface;
 use Pablodip\Riposti\Domain\Model\Relation\RelationToLoad;
 use Pablodip\Riposti\Domain\Service\RelationDataAccessor\RelationDataAccessorInterface;
@@ -20,7 +20,7 @@ class RelationsToLoadSearcher
     {
         $relationsToLoad = [];
         foreach ($objs as $o) {
-            /** @var ClassRelationsDefinition $classRelationDefs */
+            /** @var \Pablodip\Riposti\Domain\Metadata\ClassRelationsMetadata $classRelationDefs */
             $classRelationDefs = $classRelationsObtainer(get_class($o));
             $relationsToLoadForObj = $this->findRelationsToLoadForObj($classRelationDefs, $o);
             $relationsToLoad = array_merge($relationsToLoad, $relationsToLoadForObj);
@@ -29,7 +29,7 @@ class RelationsToLoadSearcher
         return $relationsToLoad;
     }
 
-    private function findRelationsToLoadForObj(ClassRelationsDefinition $classRelationDefs, $o)
+    private function findRelationsToLoadForObj(ClassRelationsMetadata $classRelationDefs, $o)
     {
         $relationsToLoad = [];
         foreach ($classRelationDefs->getRelationsDefinitions() as $r) {

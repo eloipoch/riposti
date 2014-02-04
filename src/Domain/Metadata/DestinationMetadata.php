@@ -1,8 +1,8 @@
 <?php
 
-namespace Pablodip\Riposti\Domain\Model\Destination;
+namespace Pablodip\Riposti\Domain\Metadata;
 
-class DestinationDefinition
+class DestinationMetadata
 {
     private $name;
     private $loaderInfo;

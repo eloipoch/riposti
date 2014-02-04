@@ -3,10 +3,10 @@
 namespace Pablodip\Riposti\Domain\Tests\Service;
 
 use Akamon\MockeryCallableMock\MockeryCallableMock;
-use Pablodip\Riposti\Domain\Model\ClassRelations\ClassRelationsDefinition;
-use Pablodip\Riposti\Domain\Model\Destination\DestinationDefinition;
+use Pablodip\Riposti\Domain\Metadata\ClassRelationsMetadata;
+use Pablodip\Riposti\Domain\Metadata\DestinationMetadata;
+use Pablodip\Riposti\Domain\Metadata\RelationMetadata;
 use Pablodip\Riposti\Domain\Model\NotLoadedRelation\IdOneTypeNotLoadedRelation;
-use Pablodip\Riposti\Domain\Model\Relation\RelationDefinition;
 use Pablodip\Riposti\Domain\Model\Relation\RelationToLoad;
 use Pablodip\Riposti\Domain\Service\RelationDataAccessor\PropertyReflectionRelationDataAccessor;
 use Pablodip\Riposti\Domain\Service\RelationsToLoadSearcher;
@@ -18,10 +18,10 @@ class RelationsToLoadSearcherTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_searches_one_class_with_one_relation()
     {
-        $destinyDef = new DestinationDefinition('_', '_');
-        $aRelationDef = new RelationDefinition('a', '_', $destinyDef);
+        $destinyDef = new DestinationMetadata('_', '_');
+        $aRelationDef = new RelationMetadata('a', '_', $destinyDef);
 
-        $stub1RelationsDef = new ClassRelationsDefinition('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef]);
+        $stub1RelationsDef = new ClassRelationsMetadata('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef]);
         $classRelationsObtainer = new MockeryCallableMock();
         $classRelationsObtainer->should()->with('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1')->andReturn($stub1RelationsDef);
 
@@ -39,10 +39,10 @@ class RelationsToLoadSearcherTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_does_not_search_for_not_instances_of_not_loaded_relation()
     {
-        $destinyDef = new DestinationDefinition('_', '_');
-        $aRelationDef = new RelationDefinition('a', '_', $destinyDef);
+        $destinyDef = new DestinationMetadata('_', '_');
+        $aRelationDef = new RelationMetadata('a', '_', $destinyDef);
 
-        $stub1RelationsDef = new ClassRelationsDefinition('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef]);
+        $stub1RelationsDef = new ClassRelationsMetadata('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef]);
         $classRelationsObtainer = new MockeryCallableMock();
         $classRelationsObtainer->should()->with('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1')->andReturn($stub1RelationsDef);
 
@@ -60,11 +60,11 @@ class RelationsToLoadSearcherTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_searches_one_class_with_several_relations()
     {
-        $destinyDef = new DestinationDefinition('no', 'no');
-        $aRelationDef = new RelationDefinition('a', 'one', $destinyDef);
-        $cRelationDef = new RelationDefinition('c', 'one', $destinyDef);
+        $destinyDef = new DestinationMetadata('no', 'no');
+        $aRelationDef = new RelationMetadata('a', 'one', $destinyDef);
+        $cRelationDef = new RelationMetadata('c', 'one', $destinyDef);
 
-        $stub1RelationsDef = new ClassRelationsDefinition('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef, $cRelationDef]);
+        $stub1RelationsDef = new ClassRelationsMetadata('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef, $cRelationDef]);
         $classRelationsObtainer = new MockeryCallableMock();
         $classRelationsObtainer->should()->with('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1')->andReturn($stub1RelationsDef);
 
@@ -85,12 +85,12 @@ class RelationsToLoadSearcherTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_searches_several_classes_with_one_relation()
     {
-        $destinyDef = new DestinationDefinition('no', 'no');
-        $aRelationDef = new RelationDefinition('a', 'one', $destinyDef);
-        $eRelationDef = new RelationDefinition('e', 'one', $destinyDef);
+        $destinyDef = new DestinationMetadata('no', 'no');
+        $aRelationDef = new RelationMetadata('a', 'one', $destinyDef);
+        $eRelationDef = new RelationMetadata('e', 'one', $destinyDef);
 
-        $stub1RelationsDef = new ClassRelationsDefinition('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef]);
-        $stub2RelationsDef = new ClassRelationsDefinition('Pablodip\Riposti\Domain\Tests\Stub\ObjStub2', [$eRelationDef]);
+        $stub1RelationsDef = new ClassRelationsMetadata('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef]);
+        $stub2RelationsDef = new ClassRelationsMetadata('Pablodip\Riposti\Domain\Tests\Stub\ObjStub2', [$eRelationDef]);
         $classRelationsObtainer = new MockeryCallableMock();
         $classRelationsObtainer->should()->with('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1')->andReturn($stub1RelationsDef);
         $classRelationsObtainer->should()->with('Pablodip\Riposti\Domain\Tests\Stub\ObjStub2')->andReturn($stub2RelationsDef);
@@ -114,15 +114,15 @@ class RelationsToLoadSearcherTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_searches_several_classes_with_several_relation()
     {
-        $destinyDef = new DestinationDefinition('no', 'no');
+        $destinyDef = new DestinationMetadata('no', 'no');
 
-        $aRelationDef = new RelationDefinition('a', 'one', $destinyDef);
-        $cRelationDef = new RelationDefinition('c', 'one', $destinyDef);
-        $eRelationDef = new RelationDefinition('e', 'one', $destinyDef);
-        $gRelationDef = new RelationDefinition('g', 'one', $destinyDef);
+        $aRelationDef = new RelationMetadata('a', 'one', $destinyDef);
+        $cRelationDef = new RelationMetadata('c', 'one', $destinyDef);
+        $eRelationDef = new RelationMetadata('e', 'one', $destinyDef);
+        $gRelationDef = new RelationMetadata('g', 'one', $destinyDef);
 
-        $stub1RelationsDef = new ClassRelationsDefinition('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef, $cRelationDef]);
-        $stub2RelationsDef = new ClassRelationsDefinition('Pablodip\Riposti\Domain\Tests\Stub\ObjStub2', [$eRelationDef, $gRelationDef]);
+        $stub1RelationsDef = new ClassRelationsMetadata('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1', [$aRelationDef, $cRelationDef]);
+        $stub2RelationsDef = new ClassRelationsMetadata('Pablodip\Riposti\Domain\Tests\Stub\ObjStub2', [$eRelationDef, $gRelationDef]);
         $classRelationsObtainer = new MockeryCallableMock();
         $classRelationsObtainer->should()->with('Pablodip\Riposti\Domain\Tests\Stub\ObjStub1')->andReturn($stub1RelationsDef);
         $classRelationsObtainer->should()->with('Pablodip\Riposti\Domain\Tests\Stub\ObjStub2')->andReturn($stub2RelationsDef);
