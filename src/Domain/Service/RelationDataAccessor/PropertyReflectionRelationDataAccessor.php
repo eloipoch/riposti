@@ -8,21 +8,30 @@ class PropertyReflectionRelationDataAccessor implements RelationDataAccessorInte
 {
     public function get($obj, $name)
     {
-        $refClass = new ReflectionClass(get_class($obj));
-
-        $refProp = $refClass->getProperty($name);
-        $refProp->setAccessible(true);
-
-        return $refProp->getValue($obj);
+        return $this->getReflectionProperty($obj, $name)->getValue($obj);
     }
 
     public function set($obj, $name, $data)
     {
+        $this->getReflectionProperty($obj, $name)->setValue($obj, $data);
+    }
+
+    private function getReflectionProperty($obj, $name)
+    {
         $refClass = new ReflectionClass(get_class($obj));
 
-        $refProp = $refClass->getProperty($name);
+        $refProp = $this->findProperty($name, $refClass);
         $refProp->setAccessible(true);
 
-        $refProp->setValue($obj, $data);
+        return $refProp;
+    }
+
+    private function findProperty($name, ReflectionClass $refClass)
+    {
+        if (!$refClass->hasProperty($name)) {
+            $refClass = $refClass->getParentClass();
+        }
+
+        return $refClass->getProperty($name);
     }
 }
